@@ -17,6 +17,25 @@ namespace Keepr.Services
         {
             return _repo.Get();
         }
+        public Keep GetById(int id)
+        {
+            Keep foundKeep = _repo.GetById(id);
+            if (foundKeep == null)
+            {
+                throw new Exception("Invalid keep Id");
+            }
+            return foundKeep;
+        }
+        public string Delete(string userId, int id)
+        {
+            GetById(id);
+            bool deleted = _repo.Delete(userId, id);
+            if (!deleted)
+            {
+                throw new Exception("You are not the creator of this keep!");
+            }
+            return "Deleted!";
+        }
 
         public Keep Create(Keep newKeep)
         {

@@ -1,13 +1,13 @@
 -- USE YOUR-DB-HERE;
 
--- CREATE TABLE vaults (
---     id int NOT NULL AUTO_INCREMENT,
---     name VARCHAR(255) NOT NULL,
---     description VARCHAR(255) NOT NULL,
---     userId VARCHAR(255),
---     INDEX userId (userId),  
---     PRIMARY KEY (id)
--- );
+CREATE TABLE IF NOT EXISTS vaults (
+    id int NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    userId VARCHAR(255),
+    INDEX userId (userId),  
+    PRIMARY KEY (id)
+);
 
 CREATE TABLE IF NOT EXISTS keeps (
     id int NOT NULL AUTO_INCREMENT,

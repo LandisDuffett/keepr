@@ -13,32 +13,21 @@ namespace Keepr.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class KeepsController : ControllerBase
+    public class VaultsController : ControllerBase
     {
-        private readonly KeepsService _ks;
-        public KeepsController(KeepsService ks)
+        private readonly VaultsService _vs;
+        public VaultsController(VaultsService vs)
         {
-            _ks = ks;
-        }
-        [HttpGet]
-        public ActionResult<IEnumerable<Keep>> Get()
-        {
-            try
-            {
-                return Ok(_ks.Get());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            };
+            _vs = vs;
         }
 
+
         [HttpGet("{id}")]
-        public ActionResult<Keep> GetById(int id)
+        public ActionResult<Vault> GetById(int id)
         {
             try
             {
-                return Ok(_ks.GetById(id));
+                return Ok(_vs.GetById(id));
             }
             catch (System.Exception err)
             {
@@ -48,13 +37,13 @@ namespace Keepr.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult<Keep> Post([FromBody] Keep newKeep)
+        public ActionResult<Vault> Post([FromBody] Vault newVault)
         {
             try
             {
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                newKeep.UserId = userId;
-                return Ok(_ks.Create(newKeep));
+                newVault.UserId = userId;
+                return Ok(_vs.Create(newVault));
             }
             catch (Exception e)
             {
@@ -70,9 +59,9 @@ namespace Keepr.Controllers
                 Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
                 if (user == null)
                 {
-                    throw new Exception("You must be logged in to delete any keeps.");
+                    throw new Exception("You must be logged in to delete any vaults.");
                 }
-                return Ok(_ks.Delete(user.Value, id));
+                return Ok(_vs.Delete(user.Value, id));
             }
             catch (System.Exception err)
             {

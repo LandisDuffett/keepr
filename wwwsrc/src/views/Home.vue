@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome to Keepr!</h1>
-    <div class="blogs row justify-content-center">
+    <div class="keeps row justify-content-center">
       <!-- Button trigger modal -->
       <button
         type="button"

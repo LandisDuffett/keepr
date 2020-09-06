@@ -60,8 +60,15 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async deleteVault({ commit, dispatch }, vaultId) {
+      try {
+        let res = await api.delete("vaults", vaultId)
+        dispatch("getVaults")
+      } catch (error) {
+        console.error(error)
+      }
+    },
     getVaults({ commit }) {
-      debugger
       api.get('vaults').then(res => {
         commit('setVaults', res.data)
       })

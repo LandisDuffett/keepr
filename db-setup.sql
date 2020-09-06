@@ -23,27 +23,31 @@ CREATE TABLE IF NOT EXISTS keeps (
     PRIMARY KEY (id)
 );
 
--- CREATE TABLE vaultkeeps (
---     id int NOT NULL AUTO_INCREMENT,
---     vaultId int NOT NULL,
---     keepId int NOT NULL,
---     vkuserId VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS vaultkeeps (
+    id int NOT NULL AUTO_INCREMENT,
+    vaultId int NOT NULL,
+    keepId int NOT NULL,
+    vkuserId VARCHAR(255) NOT NULL,
 
---     PRIMARY KEY (id),
---     INDEX (vaultId, keepId),
---     INDEX (userId),
+    PRIMARY KEY (id),
+    INDEX (vaultId, keepId),
+    INDEX (vkuserId),
 
---     FOREIGN KEY (vaultId)
---         REFERENCES vaults(id)
---         ON DELETE CASCADE,
+    FOREIGN KEY (vaultId)
+        REFERENCES vaults(id)
+        ON DELETE CASCADE,
 
---     FOREIGN KEY (keepId)
---         REFERENCES keeps(id)
---         ON DELETE CASCADE
--- )
+    FOREIGN KEY (keepId)
+        REFERENCES keeps(id)
+        ON DELETE CASCADE
+);
+
+ALTER TABLE vaultkeeps
+ADD COLUMN vkuserId VARCHAR(255)
 
 
--- -- USE THIS LINE FOR GET KEEPS BY VAULTID
+
+-- USE THIS LINE FOR GET KEEPS BY VAULTID
 -- SELECT 
 -- k.*,
 -- vk.id as vaultKeepId

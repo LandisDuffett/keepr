@@ -61,6 +61,7 @@ export default new Vuex.Store({
       }
     },
     getVaults({ commit }) {
+      debugger
       api.get('vaults').then(res => {
         commit('setVaults', res.data)
       })

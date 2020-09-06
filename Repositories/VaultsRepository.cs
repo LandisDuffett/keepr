@@ -16,12 +16,17 @@ namespace Keepr.Repositories
         }
 
 
-        internal Vault GetById(int id)
+        /*internal Vault GetById(int id)
         {
             string sql = "SELECT * FROM vaults WHERE id = @Id;";
             return _db.QueryFirstOrDefault<Vault>(sql, new { id });
-        }
+        }*/
 
+        internal IEnumerable<Vault> Get(string userId)
+        {
+            string sql = "SELECT * FROM vaults WHERE userId = @userId;";
+            return _db.Query<Vault>(sql, new { userId });
+        }
         public bool Delete(string userId, int id)
         {
             string sql = "DELETE FROM vaults WHERE id = @id AND userId = @userId LIMIT 1;";

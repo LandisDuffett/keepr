@@ -14,7 +14,7 @@ namespace Keepr.Services
             _repo = repo;
         }
 
-        public Vault GetById(int id)
+        /*public Vault GetById(int id)
         {
             Vault foundVault = _repo.GetById(id);
             if (foundVault == null)
@@ -22,10 +22,14 @@ namespace Keepr.Services
                 throw new Exception("Invalid vault Id");
             }
             return foundVault;
+        }*/
+        public IEnumerable<Vault> Get(string userId)
+        {
+            return _repo.Get(userId);
         }
         public string Delete(string userId, int id)
         {
-            GetById(id);
+            //GetById(id);
             bool deleted = _repo.Delete(userId, id);
             if (!deleted)
             {

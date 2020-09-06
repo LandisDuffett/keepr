@@ -65,9 +65,8 @@ namespace Keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         public ActionResult<string> Delete(int id)
         {
             try

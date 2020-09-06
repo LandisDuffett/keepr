@@ -5,7 +5,7 @@ import Home from "./views/Home.vue";
 // @ts-ignore
 import Dashboard from "./views/Dashboard.vue";
 // @ts-ignore
-import Mykeeps from "./views/Mykeeps.vue";
+import Keeps from "./views/Keeps.vue";
 // @ts-ignore
 import Vaultkeeps from "./views/Vaultkeeps.vue";
 // @ts-ignore
@@ -28,9 +28,9 @@ export default new Router({
       beforeEnter: authGuard
     },
     {
-      path: "/mykeeps",
-      name: "mykeeps",
-      component: Mykeeps,
+      path: "/keeps",
+      name: "keeps",
+      component: Keeps,
       beforeEnter: authGuard
     },
     {

@@ -26,6 +26,12 @@ namespace Keepr.Services
             }
             return foundKeep;
         }
+        public IEnumerable<Keep> GetMyKeeps(string userId)
+        {
+
+            return _repo.GetMyKeeps(userId);
+        }
+
         public string Delete(string userId, int id)
         {
             GetById(id);

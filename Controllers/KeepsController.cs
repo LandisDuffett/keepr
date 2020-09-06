@@ -33,6 +33,25 @@ namespace Keepr.Controllers
             };
         }
 
+        [Authorize]
+        [HttpGet("user")]
+        public ActionResult<IEnumerable<Keep>> GetMyKeeps()
+        {
+            try
+            {
+                Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                if (user == null)
+                {
+                    throw new Exception("You must be logged in to see your keeps.");
+                }
+                return Ok(_ks.GetMyKeeps(user.Value));
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Keep> GetById(int id)
         {
@@ -45,6 +64,8 @@ namespace Keepr.Controllers
                 return BadRequest(err.Message);
             }
         }
+
+
 
         [HttpPost]
         [Authorize]

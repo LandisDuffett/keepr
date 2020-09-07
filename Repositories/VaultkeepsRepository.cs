@@ -26,7 +26,7 @@ namespace Keepr.Repositories
             return _db.ExecuteScalar<int>(sql, newVaultkeep);
         }
 
-        internal IEnumerable<VaultkeepViewModel> GetKeepsByVaultId(int vaultId)
+        internal IEnumerable<VaultkeepViewModel> GetKeepsByVaultId(int vaultId, string userId)
         {
             string sql = @"
         SELECT 
@@ -34,25 +34,10 @@ namespace Keepr.Repositories
         vk.id as vaultkeepId
         FROM vaultkeeps vk
         INNER JOIN keeps k ON k.id = vk.keepId 
-        WHERE (vaultId = @vaultId AND vk.userId = @userId);";
-            return _db.Query<VaultkeepViewModel>(sql, new { vaultId });
+        WHERE(vaultId = @vaultId AND userId = @userId);";
+            return _db.Query<VaultkeepViewModel>(sql, new { vaultId, userId });
         }
 
-
-        //this way uses aliasing on the table names
-        // internal IEnumerable<VaultkeepViewModel> GetIngsByTacoId(int tacoId)
-        // {
-        //   string sql = @"
-        //     SELECT 
-        //         i.*,
-        //         ti.id as tacoIngId,
-        //         t.name as tacoName
-        //     FROM tacoingredients ti
-        //     INNER JOIN ingredients i ON i.id = ti.ingredientId 
-        //     INNER JOIN tacos t on t.id = ti.tacoId
-        //     WHERE(ti.tacoId = @tacoId)";
-        //   return _db.Query<VaultkeepViewModel>(sql, new { tacoId });
-        // }
 
         internal Vaultkeep GetById(int id)
         {

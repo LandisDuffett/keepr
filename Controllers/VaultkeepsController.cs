@@ -41,7 +41,7 @@ namespace Keepr.Controllers
             try
             {
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                newVaultkeep.VkuserId = userId;
+                newVaultkeep.UserId = userId;
                 return Ok(_service.Create(newVaultkeep));
             }
             catch (Exception e)

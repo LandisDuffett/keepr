@@ -40,7 +40,7 @@ export default new Router({
       beforeEnter: authGuard
     },
     {
-      path: "/vaultkeeps",
+      path: "/vaults/:vaultId/keeps",
       name: "vaultkeeps",
       component: Vaultkeeps,
       beforeEnter: authGuard

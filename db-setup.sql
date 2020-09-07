@@ -43,7 +43,12 @@ CREATE TABLE IF NOT EXISTS vaultkeeps (
 );
 
 
-SELECT * FROM vaultkeeps;
+    SELECT 
+    k.*,
+    vk.id as vaultkeepId
+    FROM vaultkeeps vk
+    INNER JOIN keeps k ON k.id = vk.keepId 
+    WHERE(vaultId = 8 AND vk.userId = "google-oauth2|101867735406718996676");
 
 
 -- ALTER TABLE vaultkeeps

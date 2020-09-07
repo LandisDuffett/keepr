@@ -10,7 +10,7 @@
         data-target="#keep-modal"
       >Create Keep</button>
     </div>
-    <h5>create your own keep or put any keep below into your vault</h5>
+    <h5>create your own keep or put any keep below into a vault</h5>
     <!--Modal-->
     <div
       class="modal fade"
@@ -89,6 +89,34 @@
       </div>
     </div>
     <!--Modal End-->
+    <!--Modal-->
+    <div
+      class="modal fade"
+      id="add-modal"
+      role="dialog"
+      aria-labelledby="modelTitleId"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add to Vault</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <h5>Click button to add keep to that vault</h5>
+              <div v-for="vault in vaults" :key="vault.id">
+                <button @click="addToVault(vault.id)" class="btn btn-danger">{{vault.name}}</button>
+              </div>
+              <div class="offset-sm-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
     <div v-for="keep in keeps" :key="keep.id">
       {{keep.name}} - {{keep.description}}
       <img
@@ -96,6 +124,7 @@
         alt
         style="max-width: 15rem; max-height:15rem"
       />
+      <button @click="addVaults(keep.id)" class="btn btn-danger">Add to Vault</button>
     </div>
   </div>
 </template>
@@ -103,17 +132,25 @@
 <script>
 export default {
   name: "keeps",
+  name: "vaults",
   mounted() {
     this.$store.dispatch("getPublicKeeps");
   },
   data() {
     return {
       newKeep: {},
+      newVaultkeep: {
+        keepId: 0,
+        vaultId: 0,
+      },
     };
   },
   computed: {
     keeps() {
       return this.$store.state.publicKeeps;
+    },
+    vaults() {
+      return this.$store.state.vaults;
     },
   },
   methods: {
@@ -125,6 +162,19 @@ export default {
       this.$store.dispatch("addKeep", this.newKeep);
       this.newKeep = {};
       $("#keep-modal").modal("hide");
+    },
+    addToVault(data) {
+      this.newVaultkeep.vaultId = data;
+      this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+    },
+    async addVaults(data) {
+      if (!this.$auth.user) {
+        await this.$auth.loginWithPopup();
+        await this.$store.dispatch("setBearer", this.$auth.bearer);
+      }
+      await this.$store.dispatch("getVaults");
+      this.newVaultkeep.keepId = data;
+      $("#add-modal").modal("show");
     },
   },
 };

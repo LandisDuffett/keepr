@@ -41,13 +41,13 @@ namespace Keepr.Repositories
 
         internal Vaultkeep GetById(int id)
         {
-            string sql = "SELECT * FROM vaultkeeps WHERE id = @Id";
+            string sql = "SELECT * FROM vaultkeeps WHERE id = @Id;";
             return _db.QueryFirstOrDefault<Vaultkeep>(sql, new { id });
         }
 
         internal void Delete(int id)
         {
-            string sql = "DELETE FROM vaultkeeps WHERE id = @Id";
+            string sql = "DELETE FROM vaultkeeps WHERE id = @Id;";
             _db.Execute(sql, new { id });
 
         }

@@ -8,6 +8,7 @@
         alt
         style="max-width: 15rem; max-height:15rem"
       />
+      <button @click="deleteVaultkeep(vaultkeep.vaultkeepId)" class="btn btn-danger">Delete</button>
     </div>
   </div>
 </template>
@@ -21,6 +22,14 @@ export default {
   computed: {
     vaultkeeps() {
       return this.$store.state.vaultkeeps;
+    },
+  },
+  methods: {
+    deleteVaultkeep(data) {
+      this.$store.dispatch("deleteVaultkeep", {
+        vaultkeepId: data,
+        vaultId: this.$route.params.vaultId,
+      });
     },
   },
 };

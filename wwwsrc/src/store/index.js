@@ -20,7 +20,7 @@ export default new Vuex.Store({
     user: {},
     publicKeeps: [],
     userKeeps: [],
-    vaults: {},
+    vaults: [],
     vaultkeeps: []
   },
   mutations: {

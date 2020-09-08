@@ -152,6 +152,9 @@ export default {
     vaults() {
       return this.$store.state.vaults;
     },
+    vaultkeeps() {
+      return this.$store.state.vaultkeeps;
+    },
   },
   methods: {
     logout() {
@@ -163,9 +166,19 @@ export default {
       this.newKeep = {};
       $("#keep-modal").modal("hide");
     },
-    addToVault(data) {
+    async addToVault(data) {
+      await this.$store.dispatch("getVaultkeeps", data);
       this.newVaultkeep.vaultId = data;
-      this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+      let alreadyExist = this.vaultkeeps.some(
+        (v) => v.id == this.newVaultkeep.keepId
+      );
+      console.log(this.vaultkeeps);
+      console.log(this.newVaultkeep);
+      if (!alreadyExist) {
+        this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+      } else {
+        alert("You've already added this keep to this vault.");
+      }
     },
     async addVaults(data) {
       if (!this.$auth.user) {

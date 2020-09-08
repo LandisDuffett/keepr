@@ -70,8 +70,14 @@
                   </div>
                 </div>
                 <div class="form-group row align-items-center">
-                  <input type="checkbox" id="checkbox" name="public" v-model="newKeep.isPrivate" />
-                  <span class="ml-2">Make private:</span>
+                  <input
+                    type="checkbox"
+                    id="checkbox"
+                    name="public"
+                    :value="0"
+                    v-model="newKeep.isPrivate"
+                  />
+                  <span class="ml-2">publish:</span>
                   <label for="checkbox"></label>
                 </div>
                 <div class="offset-sm-2 col-sm-10">
@@ -158,6 +164,7 @@
       />
       <button @click="addVaults(keep.id)" class="btn btn-danger">Add to Vault</button>
       <button @click="viewModal(keep)" class="btn btn-danger">View Keep</button>
+      <button @click="shareKeep(keep)" class="btn btn-danger">Share</button>
     </div>
   </div>
 </template>
@@ -171,7 +178,9 @@ export default {
   },
   data() {
     return {
-      newKeep: {},
+      newKeep: {
+        isPrivate: 0,
+      },
       newVaultkeep: {
         keepId: 0,
         vaultId: 0,
@@ -229,6 +238,12 @@ export default {
         views: keep.views + 1,
       });
       $("#view-modal").modal("show");
+    },
+    async shareKeep(keep) {
+      await this.$store.dispatch("updateKeep", {
+        id: keep.id,
+        shares: keep.shares + 1,
+      });
     },
     async addVaults(data) {
       if (!this.$auth.user) {

@@ -62,10 +62,10 @@ export default new Vuex.Store({
     async getPublicKeeps({ commit, dispatch }) {
       await api.get('keeps').then(res => {
         commit('setPublicKeeps', res.data)
-        dispatch("getUserkeeps")
+        dispatch("getUserKeeps")
       })
     },
-    async getUserkeeps({ commit }) {
+    async getUserKeeps({ commit }) {
       await api.get('keeps/user').then(res => {
         commit('setUserKeeps', res.data)
       })

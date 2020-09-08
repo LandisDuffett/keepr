@@ -3,6 +3,9 @@
     <h1>Welcome to Keepr!</h1>
     <div class="blogs row justify-content-center">
       <!-- Button trigger modal -->
+      <router-link :to="{name: 'keeps'}">
+        <button type="button" class="col-8 my-3 btn btn-primary btn-lg">Go to my keeps</button>
+      </router-link>
       <button
         type="button"
         class="col-4 my-3 btn btn-primary btn-lg"
@@ -10,7 +13,6 @@
         data-target="#keep-modal"
       >Create Keep</button>
     </div>
-    <h5>create your own keep or put any keep below into your vault</h5>
     <!--Modal-->
     <div
       class="modal fade"
@@ -91,6 +93,9 @@
     <!--Modal End-->
     <div class="keeps row justify-content-center">
       <!-- Button trigger modal -->
+      <router-link :to="{name: 'vaults'}">
+        <button type="button" class="col-8 my-3 btn btn-primary btn-lg">Go to my vaults</button>
+      </router-link>
       <button
         type="button"
         class="col-4 my-3 btn btn-primary btn-lg"
@@ -98,8 +103,8 @@
         data-target="#vault-modal"
       >Create Vault</button>
     </div>
-    <h5>create your own keep or put any keep below into your vault</h5>
     <!--Modal-->
+
     <div
       class="modal fade"
       id="vault-modal"
@@ -158,14 +163,6 @@
       </div>
     </div>
     <!--Modal End-->
-    <div v-for="keep in keeps" :key="keep.id">
-      {{keep.name}} - {{keep.description}}
-      <img
-        :src="keep.img"
-        alt
-        style="max-width: 15rem; max-height:15rem"
-      />
-    </div>
   </div>
 </template>
 

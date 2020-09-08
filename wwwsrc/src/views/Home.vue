@@ -117,6 +117,38 @@
       </div>
     </div>
     <!--Modal End-->
+    <!--Modal-->
+    <div
+      class="modal fade"
+      id="view-modal"
+      role="dialog"
+      aria-labelledby="modelTitleId"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Keepviewer</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div>
+                {{activeKeep.name}} - {{activeKeep.description}} - keeps: {{activeKeep.keeps}} views: {{activeKeep.views}} shares: {{activeKeep.shares}}
+                <img
+                  :src="activeKeep.img"
+                  alt
+                  style="max-width: 15rem; max-height:15rem"
+                />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
     <div v-for="keep in keeps" :key="keep.id">
       {{keep.name}} - {{keep.description}} - keeps: {{keep.keeps}} views: {{keep.views}} shares: {{keep.shares}}
       <img
@@ -125,6 +157,7 @@
         style="max-width: 15rem; max-height:15rem"
       />
       <button @click="addVaults(keep.id)" class="btn btn-danger">Add to Vault</button>
+      <button @click="viewModal(keep)" class="btn btn-danger">View Keep</button>
     </div>
   </div>
 </template>
@@ -155,6 +188,9 @@ export default {
     vaultkeeps() {
       return this.$store.state.vaultkeeps;
     },
+    activeKeep() {
+      return this.$store.state.activeKeep;
+    },
   },
   methods: {
     logout() {
@@ -181,19 +217,31 @@ export default {
     },
     addKeptCount() {
       let found = this.keeps.find((k) => k.id == this.newVaultkeep.keepId);
-      this.$store.dispatch("updateKeptCount", {
+      this.$store.dispatch("updateKeep", {
         id: found.id,
         keeps: found.keeps + 1,
       });
+    },
+    async viewModal(keep) {
+      await this.$store.dispatch("setActiveKeep", keep);
+      this.$store.dispatch("updateKeep", {
+        id: keep.id,
+        views: keep.views + 1,
+      });
+      $("#view-modal").modal("show");
     },
     async addVaults(data) {
       if (!this.$auth.user) {
         await this.$auth.loginWithPopup();
         await this.$store.dispatch("setBearer", this.$auth.bearer);
       }
-      await this.$store.dispatch("getVaults");
-      this.newVaultkeep.keepId = data;
-      $("#add-modal").modal("show");
+      if (this.$auth.user) {
+        await this.$store.dispatch("getVaults");
+        this.newVaultkeep.keepId = data;
+        $("#add-modal").modal("show");
+      } else {
+        this.$store.dispatch("getVaults");
+      }
     },
   },
 };

@@ -21,7 +21,8 @@ export default new Vuex.Store({
     publicKeeps: [],
     userKeeps: [],
     vaults: [],
-    vaultkeeps: []
+    vaultkeeps: [],
+    activeKeep: {}
   },
   mutations: {
     setUser(state, user) {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     },
     setVaultkeeps(state, vaultkeeps) {
       state.vaultkeeps = vaultkeeps
+    },
+    setActiveKeep(state, activeKeep) {
+      state.activeKeep = activeKeep
     }
   },
   actions: {
@@ -55,14 +59,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    getPublicKeeps({ commit, dispatch }) {
-      api.get('keeps').then(res => {
+    async getPublicKeeps({ commit, dispatch }) {
+      await api.get('keeps').then(res => {
         commit('setPublicKeeps', res.data)
         dispatch("getUserkeeps")
       })
     },
-    getUserKeeps({ commit }) {
-      api.get('keeps/user').then(res => {
+    async getUserkeeps({ commit }) {
+      await api.get('keeps/user').then(res => {
         commit('setUserKeeps', res.data)
       })
     },
@@ -116,13 +120,16 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async updateKeptCount({ commit, dispatch }, data) {
+    async updateKeep({ commit, dispatch }, data) {
       try {
-        let res = await api.put("keeps/" + data.id, data)
-        dispatch("getPublickeeps")
+        let res = await api.put("keeps", data)
+        dispatch("getPublicKeeps")
       } catch (error) {
         console.error(error)
       }
+    },
+    setActiveKeep({ commit }, data) {
+      this.commit("setActiveKeep", data)
     },
     getVaultkeeps({ commit }, vaultId) {
       api.get('vaults/' + vaultId + "/keeps").then(res => {

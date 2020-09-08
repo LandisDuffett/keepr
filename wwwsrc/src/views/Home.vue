@@ -118,7 +118,7 @@
     </div>
     <!--Modal End-->
     <div v-for="keep in keeps" :key="keep.id">
-      {{keep.name}} - {{keep.description}}
+      {{keep.name}} - {{keep.description}} - keeps: {{keep.keeps}} views: {{keep.views}} shares: {{keep.shares}}
       <img
         :src="keep.img"
         alt
@@ -172,13 +172,19 @@ export default {
       let alreadyExist = this.vaultkeeps.some(
         (v) => v.id == this.newVaultkeep.keepId
       );
-      console.log(this.vaultkeeps);
-      console.log(this.newVaultkeep);
       if (!alreadyExist) {
         this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+        this.addKeptCount();
       } else {
         alert("You've already added this keep to this vault.");
       }
+    },
+    addKeptCount() {
+      let found = this.keeps.find((k) => k.id == this.newVaultkeep.keepId);
+      this.$store.dispatch("updateKeptCount", {
+        id: found.id,
+        keeps: found.keeps + 1,
+      });
     },
     async addVaults(data) {
       if (!this.$auth.user) {

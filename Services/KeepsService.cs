@@ -32,6 +32,26 @@ namespace Keepr.Services
             return _repo.GetMyKeeps(userId);
         }
 
+        public Keep Update(Keep updatedKeep)
+        {
+            Keep foundKeep = GetById(updatedKeep.Id);
+            updatedKeep.Id = foundKeep.Id;
+            updatedKeep.UserId = foundKeep.UserId;
+            updatedKeep.Name = updatedKeep.Name == null ? foundKeep.Name : updatedKeep.Name;
+            updatedKeep.Description = updatedKeep.Description == null ? foundKeep.Description : updatedKeep.Description;
+            updatedKeep.Img = updatedKeep.Img == null ? foundKeep.Img : updatedKeep.Img;
+            updatedKeep.IsPrivate = updatedKeep.IsPrivate != foundKeep.IsPrivate ? updatedKeep.IsPrivate : foundKeep.IsPrivate;
+            updatedKeep.Shares = updatedKeep.Shares != foundKeep.Shares ? updatedKeep.Shares : foundKeep.Shares;
+            updatedKeep.Views = updatedKeep.Views != foundKeep.Views ? updatedKeep.Views : foundKeep.Views;
+            updatedKeep.Keeps = updatedKeep.Keeps != foundKeep.Keeps ? updatedKeep.Keeps : foundKeep.Keeps;
+            bool updated = _repo.Update(updatedKeep);
+            if (!updated)
+            {
+                throw new Exception("Sorry, you are not the owner of this keep and cannot edit it.");
+            }
+            return updatedKeep;
+        }
+
         public string Delete(string userId, int id)
         {
             GetById(id);

@@ -55,9 +55,10 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    getPublicKeeps({ commit }) {
+    getPublicKeeps({ commit, dispatch }) {
       api.get('keeps').then(res => {
         commit('setPublicKeeps', res.data)
+        dispatch("getUserkeeps")
       })
     },
     getUserKeeps({ commit }) {
@@ -111,6 +112,14 @@ export default new Vuex.Store({
       try {
         let res = await api.delete("vaultkeeps/" + data.vaultkeepId)
         dispatch("getVaultkeeps", data.vaultId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async updateKeptCount({ commit, dispatch }, data) {
+      try {
+        let res = await api.put("keeps/" + data.id, data)
+        dispatch("getPublickeeps")
       } catch (error) {
         console.error(error)
       }

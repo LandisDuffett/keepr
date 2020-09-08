@@ -52,6 +52,28 @@ namespace Keepr.Controllers
             }
         }
 
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public ActionResult<Keep> Update(int id, [FromBody] Keep updatedKeep)
+        {
+            try
+            {
+                Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                if (user == null)
+                {
+                    throw new Exception("You must be logged in to put a keep in your vault.");
+                }
+                updatedKeep.UserId = user.Value;
+                updatedKeep.Id = id;
+                return Ok(_ks.Update(updatedKeep));
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Keep> GetById(int id)
         {

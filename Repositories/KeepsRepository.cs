@@ -40,6 +40,22 @@ namespace Keepr.Repositories
             return rowsAffected == 1;
         }
 
+        public bool Update(Keep updatedKeep)
+        {
+            string sql = @"UPDATE keeps
+            SET
+            name = @name,
+            description = @description,
+            img = @img,
+            isPrivate = @isPrivate,
+            views = @views,
+            shares = @shares,
+            keeps = @keeps
+            WHERE id = @id AND userid = @userId LIMIT 1;";
+            int rowsAffected = _db.Execute(sql, updatedKeep);
+            return rowsAffected == 1;
+        }
+
         internal Keep Create(Keep newKeep)
         {
             string sql = @"INSERT INTO keeps

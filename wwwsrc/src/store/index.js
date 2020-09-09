@@ -107,14 +107,14 @@ export default new Vuex.Store({
     },
     async addVaultkeep({ commit, dispatch }, newVk) {
       try {
-        let res = await api.post('vaultkeeps', newVk)
+        let res = await api.post('vaultKeeps', newVk)
       } catch (error) {
         console.error(error)
       }
     },
     async deleteVaultkeep({ commit, dispatch }, data) {
       try {
-        let res = await api.delete("vaultkeeps/" + data.vaultkeepId)
+        let res = await api.delete("vaultKeeps/" + data.vaultKeepId)
         dispatch("getVaultkeeps", data.vaultId)
       } catch (error) {
         console.error(error)

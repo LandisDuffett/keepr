@@ -52,17 +52,24 @@ namespace Keepr.Controllers
       }
     }
 
+    [Authorize]
     [HttpPut]
     public ActionResult<Keep> Update([FromBody] Keep updatedKeep)
     {
       try
       {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("You must be logged in to put a keep in your vault.");
+        }
         return Ok(_ks.Update(updatedKeep));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
+
     }
 
     [HttpPut("{id}")]
@@ -91,7 +98,20 @@ namespace Keepr.Controllers
     {
       try
       {
-        return Ok(_ks.GetById(id));
+        var res = _ks.GetById(id);
+        if (res.IsPrivate)
+        {
+          Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+          if ((user == null) || (user.Value != res.UserId))
+          {
+            throw new Exception("You do not have access to this keep.");
+          }
+          return Ok(_ks.GetById(id));
+        }
+        else
+        {
+          return Ok(_ks.GetById(id));
+        }
       }
       catch (System.Exception err)
       {
@@ -100,9 +120,8 @@ namespace Keepr.Controllers
     }
 
 
-
-    [HttpPost]
     [Authorize]
+    [HttpPost]
     public ActionResult<Keep> Post([FromBody] Keep newKeep)
     {
       try

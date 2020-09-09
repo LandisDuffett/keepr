@@ -18,7 +18,7 @@
             <div class="container-fluid">
               <h5>Click button to add keep to that vault</h5>
               <div v-for="vault in vaults" :key="vault.id">
-                <button @click="addToVault(vault.id)" class="btn btn-danger">{{vault.name}}</button>
+                <button @click="addVaultkeep(vault.id)" class="btn btn-danger">{{vault.name}}</button>
               </div>
               <div class="offset-sm-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Add</button>
@@ -61,18 +61,20 @@
       </div>
     </div>
     <!--Modal End-->
-    <div v-for="keep in keeps" :key="keep.id">
-      <div class="col-3 bg-light border border-info m-3 p-4">
-        <div class="row">{{keep.name}}</div>
-        <div class="row">{{keep.description}}</div>
-        <div class="row">keeps: {{keep.keeps}} views: {{keep.views}} shares: {{keep.shares}}</div>
-        <div class="row">
-          <img :src="keep.img" alt style="max-width: 15rem; max-height:15rem" />
-        </div>
-        <div class="row">
-          <button @click="addVaults(keep.id)" class="btn btn-info">Add to Vault</button>
-          <button @click="viewModal(keep)" class="btn btn-info">View Keep</button>
-          <button @click="shareKeep(keep)" class="btn btn-info">Share</button>
+    <div class="row ml-2">
+      <div v-for="keep in keeps" :key="keep.id">
+        <div class="col-11 bg-light border border-info m-3 p-4">
+          <div class="row justify-content-center">{{keep.name}}</div>
+          <div class="row">{{keep.description}}</div>
+          <div class="row">keeps: {{keep.keeps}} views: {{keep.views}} shares: {{keep.shares}}</div>
+          <div class="row">
+            <img :src="keep.img" alt style="max-width: 15rem; max-height:15rem" />
+          </div>
+          <div class="row justify-content-center">
+            <button @click="addVaults(keep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
+            <button @click="viewModal(keep)" class="btn btn-sm border rounded btn-info">View</button>
+            <button @click="shareKeep(keep)" class="btn btn-sm border rounded btn-info">Share</button>
+          </div>
         </div>
       </div>
     </div>
@@ -121,19 +123,10 @@ export default {
       this.newKeep = {};
       $("#keep-modal").modal("hide");
     },
-    async addToVault(data) {
-      await this.$store.dispatch("getVaultkeeps", data);
-      debugger;
+    async addVaultkeep(data) {
       this.newVaultkeep.vaultId = data;
-      let alreadyExist = this.vaultkeeps.some(
-        (v) => v.id == this.newVaultkeep.keepId
-      );
-      if (!alreadyExist) {
-        this.$store.dispatch("addVaultkeep", this.newVaultkeep);
-        this.addKeptCount();
-      } else {
-        alert("You've already added this keep to this vault.");
-      }
+      this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+      this.addKeptCount();
     },
     addKeptCount() {
       let found = this.keeps.find((k) => k.id == this.newVaultkeep.keepId);

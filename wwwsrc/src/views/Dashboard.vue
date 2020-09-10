@@ -75,8 +75,14 @@
                   </div>
                 </div>
                 <div class="form-group row align-items-center">
-                  <input type="checkbox" id="checkbox" name="public" v-model="newKeep.isPrivate" />
-                  <span class="ml-2">Make private:</span>
+                  <input
+                    type="checkbox"
+                    id="checkbox"
+                    name="public"
+                    value="false"
+                    v-model="newKeep.isPrivate"
+                  />
+                  <span class="ml-2">Private (uncheck to make public)</span>
                   <label for="checkbox"></label>
                 </div>
                 <div class="offset-sm-2 col-sm-10">
@@ -181,7 +187,9 @@ export default {
   },
   data() {
     return {
-      newKeep: {},
+      newKeep: {
+        isPrivate: 1,
+      },
       newVault: {},
     };
   },
@@ -194,10 +202,12 @@ export default {
     logout() {
       this.$store.dispatch("logout");
     },
-    addKeep() {
+    async addKeep() {
       console.log("hello");
-      this.$store.dispatch("addKeep", this.newKeep);
-      this.newKeep = {};
+      await this.$store.dispatch("addKeep", this.newKeep);
+      this.newKeep = {
+        isPrivate: 1,
+      };
       $("#keep-modal").modal("hide");
     },
     addVault() {

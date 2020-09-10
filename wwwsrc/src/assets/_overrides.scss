@@ -4,3 +4,10 @@
   border-color: darken($color: $primary, $amount: 10);
   border-width: medium;
 }
+
+button:focus, .btn.focus, .btn:focus {
+    outline: none !important ;
+    box-shadow: none !important;
+}
+
+

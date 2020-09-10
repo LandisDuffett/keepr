@@ -1,14 +1,17 @@
 <template>
   <div class="home">
-    <h1>Welcome to Keepr!</h1>
+    <h1 class="text-center">Your Dashboard!</h1>
     <div class="blogs row justify-content-center">
       <!-- Button trigger modal -->
       <router-link :to="{name: 'keeps'}">
-        <button type="button" class="col-8 my-3 btn btn-primary btn-lg">Go to my keeps</button>
+        <button
+          type="button"
+          class="col-8 my-3 btn btn-primary rounded border shadow btn-lg"
+        >Go to my keeps</button>
       </router-link>
       <button
         type="button"
-        class="col-4 my-3 btn btn-primary btn-lg"
+        class="col-1 my-3 btn btn-primary rounded border shadow btn-lg"
         data-toggle="modal"
         data-target="#keep-modal"
       >Create Keep</button>
@@ -94,11 +97,14 @@
     <div class="keeps row justify-content-center">
       <!-- Button trigger modal -->
       <router-link :to="{name: 'vaults'}">
-        <button type="button" class="col-8 my-3 btn btn-primary btn-lg">Go to my vaults</button>
+        <button
+          type="button"
+          class="col-8 my-3 btn btn-primary rounded border shadow btn-lg"
+        >Go to my vaults</button>
       </router-link>
       <button
         type="button"
-        class="col-4 my-3 btn btn-primary btn-lg"
+        class="col-1 rounded border shadow my-3 btn btn-primary btn-lg"
         data-toggle="modal"
         data-target="#vault-modal"
       >Create Vault</button>

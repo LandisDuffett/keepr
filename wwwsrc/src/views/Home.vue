@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home text-center">
     <h1>Welcome to Keepr!</h1>
     <!--Modal-->
     <div
@@ -12,16 +12,23 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add to Vault</h5>
+            <h3 class="modal-title">Add to Vault</h3>
           </div>
           <div class="modal-body">
             <div class="container-fluid">
               <h5>Click button to add keep to that vault</h5>
               <div v-for="vault in vaults" :key="vault.id">
-                <button @click="addVaultkeep(vault.id)" class="btn btn-danger">{{vault.name}}</button>
+                <button
+                  @click="addVaultkeep(vault.id)"
+                  class="btn col-6 border rounded btn-info"
+                >{{vault.name}}</button>
               </div>
-              <div class="offset-sm-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Add</button>
+              <div>
+                <button
+                  type="button"
+                  class="col-10 m-2 btn rounded border btn-secondary"
+                  data-dismiss="modal"
+                >Close</button>
               </div>
             </div>
           </div>
@@ -61,19 +68,32 @@
       </div>
     </div>
     <!--Modal End-->
-    <div class="row ml-2">
+    <div class="flex-wrap d-flex">
       <div v-for="keep in keeps" :key="keep.id">
-        <div class="col-11 bg-light border border-info m-3 p-4">
-          <div class="row justify-content-center">{{keep.name}}</div>
-          <div class="row">{{keep.description}}</div>
-          <div class="row">keeps: {{keep.keeps}} views: {{keep.views}} shares: {{keep.shares}}</div>
-          <div class="row">
-            <img :src="keep.img" alt style="max-width: 15rem; max-height:15rem" />
-          </div>
+        <div class="bg-light border rounded border-info shadow m-3 px-4 py-3">
           <div class="row justify-content-center">
+            <h3>{{keep.name}}</h3>
+          </div>
+          <div class="row">{{keep.description}}</div>
+          <img :src="keep.img" alt style="max-width: 20rem" />
+          <div class="row justify-content-center mt-2 mb-1">
             <button @click="addVaults(keep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
             <button @click="viewModal(keep)" class="btn btn-sm border rounded btn-info">View</button>
             <button @click="shareKeep(keep)" class="btn btn-sm border rounded btn-info">Share</button>
+          </div>
+          <div class="row justify-content-center">
+            <span class="mr-2">
+              <b>keeps:</b>
+              {{keep.keeps}}
+            </span>
+            <span class="mr-2">
+              <b>views:</b>
+              {{keep.views}}
+            </span>
+            <span class="mr-2">
+              <b>shares:</b>
+              {{keep.shares}}
+            </span>
           </div>
         </div>
       </div>

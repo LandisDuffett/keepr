@@ -1,6 +1,5 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link class="navbar-brand" :to="{ name: 'home' }">Keepr</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -25,6 +24,9 @@
           <router-link class="nav-link" :to="{ name: 'dashboard' }">My-Dashboard</router-link>
         </li>
       </ul>
+      <div class="col-sm-6">
+        <h1 class="text-info text-primary outline">Keepr</h1>
+      </div>
       <span class="navbar-text">
         <button
           class="btn btn-success rounded border shadow"

@@ -1,6 +1,8 @@
 <template>
   <div class="home text-center">
-    <h1>Welcome to Keepr!</h1>
+    <h5 class="mt-1">
+      <b>Welcome to keepr, the app that lets you post your interests and keep posts that others have made. View any post on this page, or log in to create your own vaults, make your own posts, and keep any post in your vaults.</b>
+    </h5>
     <!--Modal-->
     <div
       class="modal fade"
@@ -20,13 +22,13 @@
               <div v-for="vault in vaults" :key="vault.id">
                 <button
                   @click="addVaultkeep(vault.id)"
-                  class="btn col-6 border rounded btn-info"
+                  class="btn col-6 border rounded border-black btn-info"
                 >{{vault.name}}</button>
               </div>
               <div>
                 <button
                   type="button"
-                  class="col-10 m-2 btn rounded border btn-secondary"
+                  class="col-10 m-2 btn rounded border border-black btn-secondary"
                   data-dismiss="modal"
                 >Close</button>
               </div>
@@ -47,20 +49,32 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Keepviewer</h5>
+            <h5 class="modal-title"></h5>
           </div>
           <div class="modal-body">
             <div class="container-fluid">
               <div>
-                {{activeKeep.name}} - {{activeKeep.description}} - keeps: {{activeKeep.keeps}} views: {{activeKeep.views}} shares: {{activeKeep.shares}}
-                <img
-                  :src="activeKeep.img"
-                  alt
-                  style="max-width: 15rem; max-height:15rem"
-                />
+                <div class="row">
+                  <h3 class="ml-5">{{activeKeep.name}}</h3>
+                </div>
+                <div class="row">
+                  <h5>{{activeKeep.description}}</h5>
+                </div>
+                <img :src="activeKeep.img" alt style="max-width: 15rem; max-height:15rem" />
+                <div class="row">
+                  <h5>
+                    <span class="mr-3">keeps: {{activeKeep.keeps}}</span>
+                    <span class="mr-3">views: {{activeKeep.views}}</span>
+                    <span>shares: {{activeKeep.shares}}</span>
+                  </h5>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button
+                  type="button"
+                  class="btn rounded border border-light shadow btn-secondary"
+                  data-dismiss="modal"
+                >Close</button>
               </div>
             </div>
           </div>
@@ -70,7 +84,7 @@
     <!--Modal End-->
     <div class="flex-wrap d-flex">
       <div v-for="keep in keeps" :key="keep.id">
-        <div class="bg-light border rounded border-info shadow m-3 px-4 py-3">
+        <div class="bg-light border rounded border-primary shadow m-3 px-4 py-3">
           <div class="row justify-content-center">
             <h3>{{keep.name}}</h3>
           </div>
@@ -145,7 +159,7 @@ export default {
     },
     async addVaultkeep(data) {
       this.newVaultkeep.vaultId = data;
-      this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+      await this.$store.dispatch("addVaultkeep", this.newVaultkeep);
       this.addKeptCount();
     },
     addKeptCount() {

@@ -1,5 +1,40 @@
 <template>
   <div class="home text-center">
+    <!--Modal-->
+    <div
+      class="modal fade"
+      id="add-modal"
+      role="dialog"
+      aria-labelledby="modelTitleId"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Add to Vault</h3>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <h5>Click button to add keep to that vault</h5>
+              <div v-for="vault in vaults" :key="vault.id">
+                <button
+                  @click="addVaultkeep(vault.id)"
+                  class="btn col-6 border rounded btn-info"
+                >{{vault.name}}</button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="col-10 m-2 btn rounded border btn-secondary"
+                  data-dismiss="modal"
+                >Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
     <h3>Your Keeps</h3>
     <div class="flex-wrap d-flex">
       <div v-for="userKeep in userKeeps" :key="userKeep.id">
@@ -14,6 +49,7 @@
               @click="deleteUserKeep(userKeep.id)"
               class="btn rounded border shadow btn-danger"
             >Delete</button>
+            <button @click="addVaults(userKeep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
           </div>
         </div>
       </div>
@@ -27,9 +63,20 @@ export default {
   mounted() {
     this.$store.dispatch("getUserKeeps");
   },
+  data() {
+    return {
+      newVaultkeep: {
+        keepId: 0,
+        vaultId: 0,
+      },
+    };
+  },
   computed: {
     userKeeps() {
       return this.$store.state.userKeeps;
+    },
+    vaults() {
+      return this.$store.state.vaults;
     },
   },
   methods: {
@@ -38,6 +85,15 @@ export default {
     },
     deleteUserKeep(keepid) {
       this.$store.dispatch("deleteKeep", keepid);
+    },
+    async addVaults(data) {
+      await this.$store.dispatch("getVaults");
+      this.newVaultkeep.keepId = data;
+      $("#add-modal").modal("show");
+    },
+    addVaultkeep(data) {
+      this.newVaultkeep.vaultId = data;
+      this.$store.dispatch("addVaultkeep", this.newVaultkeep);
     },
   },
 };

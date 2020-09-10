@@ -10,4 +10,11 @@ button:focus, .btn.focus, .btn:focus {
     box-shadow: none !important;
 }
 
+.outline {
+  text-shadow:
+    -0.5px -0.5px 0 #fff,
+    0.5px -0.5px 0 #fff,
+    -0.5px 0.5px 0 #fff,
+    0.5px 0.5px 0 #fff;  
+}
 

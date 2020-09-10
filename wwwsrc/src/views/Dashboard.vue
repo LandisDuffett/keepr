@@ -1,20 +1,41 @@
 <template>
   <div class="home">
-    <h1 class="text-center">Your Dashboard!</h1>
+    <h1 class="text-center">Dashboard</h1>
     <div class="blogs row justify-content-center">
-      <!-- Button trigger modal -->
       <router-link :to="{name: 'keeps'}">
         <button
           type="button"
-          class="col-8 my-3 btn btn-primary rounded border shadow btn-lg"
+          class="btn m-1 btn-primary rounded border border-black shadow btn-lg"
+          style="width: 25rem"
         >Go to my keeps</button>
       </router-link>
+    </div>
+    <div class="blogs row justify-content-center">
       <button
         type="button"
-        class="col-1 my-3 btn btn-primary rounded border shadow btn-lg"
+        class="btn m-1 btn-primary rounded border border-black shadow btn-lg"
         data-toggle="modal"
         data-target="#keep-modal"
+        style="width: 25rem"
       >Create Keep</button>
+    </div>
+    <div class="blogs row justify-content-center">
+      <router-link :to="{name: 'vaults'}">
+        <button
+          type="button"
+          style="width: 25rem"
+          class="btn m-1 btn-info rounded border border-black shadow btn-lg"
+        >Go to my vaults</button>
+      </router-link>
+    </div>
+    <div class="blogs row justify-content-center">
+      <button
+        type="button"
+        class="rounded m-1 border shadow border-black btn btn-info btn-lg"
+        style="width: 25rem"
+        data-toggle="modal"
+        data-target="#vault-modal"
+      >Create Vault</button>
     </div>
     <!--Modal-->
     <div
@@ -102,18 +123,6 @@
     <!--Modal End-->
     <div class="keeps row justify-content-center">
       <!-- Button trigger modal -->
-      <router-link :to="{name: 'vaults'}">
-        <button
-          type="button"
-          class="col-8 my-3 btn btn-primary rounded border shadow btn-lg"
-        >Go to my vaults</button>
-      </router-link>
-      <button
-        type="button"
-        class="col-1 rounded border shadow my-3 btn btn-primary btn-lg"
-        data-toggle="modal"
-        data-target="#vault-modal"
-      >Create Vault</button>
     </div>
     <!--Modal-->
 

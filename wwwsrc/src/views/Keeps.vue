@@ -1,5 +1,14 @@
 <template>
   <div class="home text-center">
+    <div class="blogs row justify-content-center">
+      <button
+        type="button"
+        class="btn m-1 btn-primary rounded border border-black shadow btn-lg"
+        data-toggle="modal"
+        data-target="#keep-modal"
+        style="width: 25rem"
+      >Create Keep</button>
+    </div>
     <!--Modal-->
     <div
       class="modal fade"
@@ -29,6 +38,93 @@
                   data-dismiss="modal"
                 >Close</button>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
+    <div
+      class="modal fade"
+      id="keep-modal"
+      role="dialog"
+      aria-labelledby="modelTitleId"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create Keep</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <form @submit.prevent="addKeep">
+                <div class="form-group row">
+                  <label for="name" class="col-sm-1-12 col-form-label mr-2">Name:</label>
+                  <div class="col-sm-1-12">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="name"
+                      id="name"
+                      placeholder="Enter keep title here..."
+                      v-model="newKeep.name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="body" class="col-sm-1-12 col-form-label mr-2">Description:</label>
+                  <div class="col-sm-1-12">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="body"
+                      id="body"
+                      placeholder="Enter any text..."
+                      v-model="newKeep.description"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="image" class="col-sm-1-12 col-form-label mr-2">Image:</label>
+                  <div class="col-sm-1-12">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="image"
+                      id="image"
+                      placeholder="Enter an image URL..."
+                      v-model="newKeep.img"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row align-items-center">
+                  <input
+                    type="checkbox"
+                    id="checkbox"
+                    name="public"
+                    value="false"
+                    @click="newKeep.isPrivate=!newKeep.isPrivate"
+                  />
+                  <span class="ml-2">Make Public</span>
+                  <label for="checkbox"></label>
+                </div>
+                <div class="offset-sm-2 col-sm-10">
+                  <button type="submit" class="btn rounded shadow btn-primary">Submit Keep</button>
+                </div>
+                <div class="form-group row">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn rounded shadow btn-secondary"
+                      data-dismiss="modal"
+                    >Close</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -73,6 +169,9 @@ export default {
         keepId: 0,
         vaultId: 0,
       },
+      newKeep: {
+        isPrivate: true,
+      },
     };
   },
   computed: {
@@ -98,6 +197,14 @@ export default {
     addVaultkeep(data) {
       this.newVaultkeep.vaultId = data;
       this.$store.dispatch("addVaultkeep", this.newVaultkeep);
+    },
+    async addKeep() {
+      console.log("hello");
+      await this.$store.dispatch("addKeep", this.newKeep);
+      this.newKeep = {
+        isPrivate: 1,
+      };
+      $("#keep-modal").modal("hide");
     },
   },
 };

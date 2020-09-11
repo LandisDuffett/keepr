@@ -53,6 +53,7 @@ export default new Vuex.Store({
     },
     async addKeep({ dispatch }, newKeep) {
       try {
+        debugger
         let res = await api.post('keeps', newKeep)
         dispatch('getPublicKeeps')
       } catch (error) {

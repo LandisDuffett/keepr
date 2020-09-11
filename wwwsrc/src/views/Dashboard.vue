@@ -11,15 +11,6 @@
       </router-link>
     </div>
     <div class="blogs row justify-content-center">
-      <button
-        type="button"
-        class="btn m-1 btn-primary rounded border border-black shadow btn-lg"
-        data-toggle="modal"
-        data-target="#keep-modal"
-        style="width: 25rem"
-      >Create Keep</button>
-    </div>
-    <div class="blogs row justify-content-center">
       <router-link :to="{name: 'vaults'}">
         <button
           type="button"

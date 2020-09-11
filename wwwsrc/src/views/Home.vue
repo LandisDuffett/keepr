@@ -60,7 +60,9 @@
                 <div class="row">
                   <h5>{{activeKeep.description}}</h5>
                 </div>
-                <img :src="activeKeep.img" alt style="max-width: 15rem; max-height:15rem" />
+                <div class="row m-2 border rounded shadow border-primary justify-content-center">
+                  <img :src="activeKeep.img" alt style="max-width: 15rem; max-height:15rem" />
+                </div>
                 <div class="row">
                   <h5>
                     <span class="mr-3">keeps: {{activeKeep.keeps}}</span>
@@ -89,10 +91,16 @@
             <h3>{{keep.name}}</h3>
           </div>
           <div class="row">{{keep.description}}</div>
+<<<<<<< HEAD
           <div class="row mb-1">
             <img :src="keep.img" alt style="max-width: 20rem" />
           </div>
           <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
+=======
+          <div class="row border border-solid rounded border-dark">
+            <img :src="keep.img" alt style="max-width: 20rem" />
+          </div>
+>>>>>>> fafa8dabcbae4d574cdfa25cf90c5e86afbe58b7
           <div class="row justify-content-center mt-2 mb-1">
             <button @click="addVaults(keep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
             <button @click="viewModal(keep)" class="btn btn-sm border rounded btn-info">View</button>

@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     deleteVaultkeep(data) {
-      debugger;
       this.$store.dispatch("deleteVaultkeep", {
         vaultKeepId: data,
         vaultId: this.$route.params.vaultId,

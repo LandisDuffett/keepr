@@ -16,12 +16,11 @@
         <li class="nav-item" :class="{ active: $route.name == 'home' }">
           <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
         </li>
-        <li
-          class="nav-item"
-          v-if="$auth.isAuthenticated"
-          :class="{ active: $route.name == 'dashboard' }"
-        >
-          <router-link class="nav-link" :to="{ name: 'dashboard' }">Dashboard</router-link>
+        <li class="nav-item" :class="{ active: $route.name == 'home' }">
+          <router-link :to="{name: 'keeps'}" class="nav-link">My Keeps</router-link>
+        </li>
+        <li class="nav-item" :class="{ active: $route.name == 'home' }">
+          <router-link :to="{name: 'vaults'}" class="nav-link">My Vaults</router-link>
         </li>
       </ul>
       <div class="col-sm-6">

@@ -1,5 +1,8 @@
 <template>
   <div class="home text-center">
+    <div class="row justify-content-center mt-2">
+      <h5>Your Keeps</h5>
+    </div>
     <div class="blogs row justify-content-center">
       <button
         type="button"
@@ -112,7 +115,7 @@
                   <span class="ml-2">Make Public</span>
                   <label for="checkbox"></label>
                 </div>
-                <div class="offset-sm-2 col-sm-10">
+                <div class="row ml-1">
                   <button type="submit" class="btn rounded shadow btn-primary">Submit Keep</button>
                 </div>
                 <div class="form-group row">
@@ -131,8 +134,6 @@
       </div>
     </div>
     <!--Modal End-->
-
-    <h3>Your Keeps</h3>
     <div class="flex-wrap d-flex">
       <div v-for="userKeep in userKeeps" :key="userKeep.id">
         <div class="bg-light border rounded border-info shadow m-3 px-4 py-3">
@@ -146,10 +147,13 @@
           <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
           <div class="row justify-content-center mt-2 mb-1">
             <button
+              @click="addVaults(userKeep.id)"
+              class="btn btn-sm border rounded btn-primary"
+            >Keep</button>
+            <button
               @click="deleteUserKeep(userKeep.id)"
               class="btn rounded border btn-sm shadow btn-danger"
             >Delete</button>
-            <button @click="addVaults(userKeep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
           </div>
         </div>
       </div>

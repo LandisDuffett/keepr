@@ -35,6 +35,7 @@
       </div>
     </div>
     <!--Modal End-->
+
     <h3>Your Keeps</h3>
     <div class="flex-wrap d-flex">
       <div v-for="userKeep in userKeeps" :key="userKeep.id">
@@ -43,11 +44,14 @@
             <h3>{{userKeep.name}}</h3>
           </div>
           <div class="row">{{userKeep.description}}</div>
-          <img :src="userKeep.img" alt style="max-width: 20rem" />
+          <div class="row mb-1">
+            <img :src="userKeep.img" alt style="max-width: 20rem" />
+          </div>
+          <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
           <div class="row justify-content-center mt-2 mb-1">
             <button
               @click="deleteUserKeep(userKeep.id)"
-              class="btn rounded border shadow btn-danger"
+              class="btn rounded border btn-sm shadow btn-danger"
             >Delete</button>
             <button @click="addVaults(userKeep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
           </div>

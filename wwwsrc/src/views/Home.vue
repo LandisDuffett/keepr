@@ -89,7 +89,10 @@
             <h3>{{keep.name}}</h3>
           </div>
           <div class="row">{{keep.description}}</div>
-          <img :src="keep.img" alt style="max-width: 20rem" />
+          <div class="row mb-1">
+            <img :src="keep.img" alt style="max-width: 20rem" />
+          </div>
+          <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
           <div class="row justify-content-center mt-2 mb-1">
             <button @click="addVaults(keep.id)" class="btn btn-sm border rounded btn-info">Keep</button>
             <button @click="viewModal(keep)" class="btn btn-sm border rounded btn-info">View</button>

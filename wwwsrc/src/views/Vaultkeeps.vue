@@ -1,14 +1,24 @@
 <template>
   <div class="dashboard">
-    <h1>WELCOME TO VAULTKEEPS</h1>
-    <div v-for="vaultkeep in vaultkeeps" :key="vaultkeep.id">
-      {{vaultkeep.name}} - {{vaultkeep.description}}
-      <img
-        :src="vaultkeep.img"
-        alt
-        style="max-width: 15rem; max-height:15rem"
-      />
-      <button @click="deleteVaultkeep(vaultkeep.vaultKeepId)" class="btn btn-danger">Delete</button>
+    <div class="flex-wrap d-flex">
+      <div v-for="vaultkeep in vaultkeeps" :key="vaultkeep.id">
+        <div class="bg-light border rounded border-info shadow m-3 px-4 py-3">
+          <div class="row justify-content-center">
+            <h3>{{vaultkeep.name}}</h3>
+          </div>
+          <div class="row">{{vaultkeep.description}}</div>
+          <div class="row mb-1">
+            <img :src="vaultkeep.img" alt style="max-width: 20rem" />
+          </div>
+          <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
+          <div class="row justify-content-center mt-2 mb-1">
+            <button
+              @click="deleteVaultkeep(vaultkeep.id)"
+              class="btn rounded border btn-sm shadow btn-danger"
+            >Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

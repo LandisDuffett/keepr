@@ -100,7 +100,6 @@
                       id="image"
                       placeholder="Enter an image URL..."
                       v-model="newKeep.img"
-                      required
                     />
                   </div>
                 </div>
@@ -109,7 +108,6 @@
                     type="checkbox"
                     id="checkbox"
                     name="public"
-                    value="false"
                     @click="newKeep.isPrivate=!newKeep.isPrivate"
                   />
                   <span class="ml-2">Make Public</span>
@@ -205,9 +203,6 @@ export default {
     async addKeep() {
       console.log("hello");
       await this.$store.dispatch("addKeep", this.newKeep);
-      this.newKeep = {
-        isPrivate: 1,
-      };
       $("#keep-modal").modal("hide");
     },
   },

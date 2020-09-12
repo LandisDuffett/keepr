@@ -71,7 +71,6 @@
                       id="body"
                       placeholder="Enter any text..."
                       v-model="newVault.description"
-                      required
                     />
                   </div>
                 </div>

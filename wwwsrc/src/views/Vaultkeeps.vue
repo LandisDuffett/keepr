@@ -5,12 +5,15 @@
     </div>
     <div class="flex-wrap d-flex">
       <div v-for="vaultkeep in vaultkeeps" :key="vaultkeep.id">
-        <div class="bg-light border rounded border-info shadow m-3 px-4 py-3">
+        <div
+          class="bg-light border rounded border-info shadow m-3 px-4 py-3"
+          style="max-width: 25rem;"
+        >
           <div class="row justify-content-center">
             <h3>{{vaultkeep.name}}</h3>
           </div>
           <div class="row">{{vaultkeep.description}}</div>
-          <div class="row mb-1">
+          <div class="mb-1 ml-3">
             <img :src="vaultkeep.img" alt style="max-width: 20rem" />
           </div>
           <div class="row border-bottom border-dark" style="border-width: 5px;"></div>

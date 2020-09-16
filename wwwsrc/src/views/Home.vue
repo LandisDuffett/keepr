@@ -88,14 +88,14 @@
       <div v-for="keep in keeps" :key="keep.id">
         <div
           class="bg-light border rounded border-primary shadow m-3 px-4 py-3"
-          style="max-width: 25rem;"
+          style="max-width: 20rem;"
         >
           <div class="row justify-content-center">
             <h3>{{keep.name}}</h3>
           </div>
           <div class="row">{{keep.description}}</div>
           <div class="mb-1">
-            <img :src="keep.img" alt style="max-width: 20rem" />
+            <img :src="keep.img" alt style="max-width: 16rem" />
           </div>
           <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
           <div class="row justify-content-center mt-2 mb-1">

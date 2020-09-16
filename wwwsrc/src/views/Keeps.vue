@@ -136,14 +136,14 @@
       <div v-for="userKeep in userKeeps" :key="userKeep.id">
         <div
           class="bg-light border rounded border-info shadow m-3 px-4 py-3"
-          style="max-width: 25rem;"
+          style="max-width: 20rem;"
         >
           <div class="row justify-content-center">
             <h3>{{userKeep.name}}</h3>
           </div>
           <div class="row">{{userKeep.description}}</div>
           <div class="mb-1">
-            <img :src="userKeep.img" alt style="max-width: 20rem" />
+            <img :src="userKeep.img" alt style="max-width: 16rem" />
           </div>
           <div class="row border-bottom border-dark" style="border-width: 5px;"></div>
           <div class="row justify-content-center mt-2 mb-1">
